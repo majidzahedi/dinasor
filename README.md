@@ -1,29 +1,78 @@
-# Create T3 App
+# Project Tracker
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Project Overview
+- **Project Name**: Dinasor
+- **Description**: Manager your Dinasors in one application
+- **Start Date**: Apr 19 2025
+- **End Date**: who knows?
+- **Status**: In Progress (Not Started / In Progress / Completed / On Hold)
+- **Priority**: Medium (Low / Medium / High)
+- **Team Members**: Me & Him
+- **Key Contacts**: 
 
-## What's next? How do I make an app with this?
+---
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Goals & Milestones
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+| Milestone         | Target Date | Status     | Notes         |
+|-------------------|-------------|------------|---------------|
+| Setup Auth        | Apr 26 2025 | Not Started|               |
+| Milestone 2       | YYYY-MM-DD  |            |               |
+| Milestone 3       | YYYY-MM-DD  |            |               |
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+---
 
-## Learn More
+## Tasks & To-Do List
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+### 📝 **Task List**
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+| Task                 | Due Date   | Assigned To | Status     | Notes       |
+|----------------------|------------|-------------|------------|-------------|
+| Signin With Email Ui | Apr 20 2025 | Me        | Not Started|             |
+| Task 2               | YYYY-MM-DD | Name        | In Progress|             |
+| Task 3               | YYYY-MM-DD | Name        | Completed  |             |
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### 🔄 **Task Dependencies**
 
-## How do I deploy this?
+| Task 1       | Depends On    | Notes             |
+|--------------|--------------|-------------------|
+| Task 2       | Task 1       |                   |
+| Task 3       | Task 2       |                   |
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+---
+
+## Risks & Issues
+
+| Risk/Issue       | Impact   | Likelihood | Mitigation Strategy | Owner     | Status     |
+|------------------|----------|------------|---------------------|-----------|------------|
+| Risk 1           | High     | Medium     | Risk Mitigation Plan| Name      | Open       |
+| Issue 1          | Low      | High       | Issue Resolution Plan| Name     | Closed     |
+
+---
+
+## Resources
+
+- **Budget**:
+    - Total Budget: $[Amount]
+    - Spent: $[Amount]
+    - Remaining: $[Amount]
+  
+- **Tools/Software Needed**:
+    - Tool 1: Description
+    - Tool 2: Description
+
+---
+
+## Notes & Ideas
+
+- Note 1
+- Idea 1
+- Any relevant thoughts you want to track
+
+---
+
+## Review & Retrospective
+
+- **Last Review Date**: 
+- **Review Notes**: 
+- **Next Steps**: 
