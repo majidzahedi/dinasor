@@ -1,8 +1,8 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { sql } from "drizzle-orm";
-import { index, pgTableCreator } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import { pgTableCreator } from "drizzle-orm/pg-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -12,20 +12,6 @@ import { index, pgTableCreator } from "drizzle-orm/pg-core";
  */
 export const createTable = pgTableCreator((name) => `dinasor_${name}`);
 
-export const posts = createTable(
-  "post",
-  (d) => ({
-    id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-    name: d.varchar({ length: 256 }),
-    createdAt: d
-      .timestamp({ withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
-  }),
-  (t) => [index("name_idx").on(t.name)],
-);
-
 export const user = createTable("user", (d) => ({
   id: d.text("id").primaryKey(),
   name: d.text("name").notNull(),
@@ -34,6 +20,12 @@ export const user = createTable("user", (d) => ({
   image: d.text("image"),
   createdAt: d.timestamp("created_at").notNull(),
   updatedAt: d.timestamp("updated_at").notNull(),
+  role: d.text("role"),
+  banned: d.boolean("banned"),
+  banReason: d.text("ban_reason"),
+  banExpires: d.timestamp("ban_expires"),
+  phoneNumber: d.text("phone_number").unique(),
+  phoneNumberVerified: d.boolean("phone_number_verified"),
 }));
 
 export const session = createTable("session", (d) => ({
@@ -48,6 +40,8 @@ export const session = createTable("session", (d) => ({
     .text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  impersonatedBy: d.text("impersonated_by"),
+  activeOrganizationId: d.text("active_organization_id"),
 }));
 
 export const account = createTable("account", (d) => ({
@@ -76,4 +70,72 @@ export const verification = createTable("verification", (d) => ({
   expiresAt: d.timestamp("expires_at").notNull(),
   createdAt: d.timestamp("created_at"),
   updatedAt: d.timestamp("updated_at"),
+}));
+
+export const organization = createTable("organization", (d) => ({
+  id: d.text("id").primaryKey(),
+  name: d.text("name").notNull(),
+  slug: d.text("slug").unique(),
+  logo: d.text("logo"),
+  createdAt: d.timestamp("created_at").notNull(),
+  metadata: d.text("metadata"),
+}));
+
+export const member = createTable("member", (d) => ({
+  id: d.text("id").primaryKey(),
+  organizationId: d
+    .text("organization_id")
+    .notNull()
+    .references(() => organization.id, { onDelete: "cascade" }),
+  userId: d
+    .text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  role: d.text("role").notNull(),
+  createdAt: d.timestamp("created_at").notNull(),
+}));
+
+export const invitation = createTable("invitation", (d) => ({
+  id: d.text("id").primaryKey(),
+  organizationId: d
+    .text("organization_id")
+    .notNull()
+    .references(() => organization.id, { onDelete: "cascade" }),
+  email: d.text("email").notNull(),
+  role: d.text("role"),
+  status: d.text("status").notNull(),
+  expiresAt: d.timestamp("expires_at").notNull(),
+  inviterId: d
+    .text("inviter_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+}));
+
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+  members: many(member),
+}));
+
+export const sessionRelations = relations(session, ({ one }) => ({
+  user: one(user, { fields: [session.userId], references: [user.id] }),
+}));
+
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, { fields: [account.userId], references: [user.id] }),
+}));
+
+export const organizationRelations = relations(organization, ({ many }) => ({
+  members: many(member),
+}));
+
+export const memberRelations = relations(member, ({ one }) => ({
+  organization: one(organization, {
+    fields: [member.organizationId],
+    references: [organization.id],
+  }),
+  user: one(user, {
+    fields: [member.userId],
+    references: [user.id],
+  }),
 }));
