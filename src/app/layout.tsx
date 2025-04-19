@@ -1,10 +1,9 @@
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Vazirmatn } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import { Provider } from "@radix-ui/react-tooltip";
 import { Providers } from "@/components/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const geist = Geist({
+const vazirmatn = Vazirmatn({
   subsets: ["latin"],
   variable: "--font-geist-sans",
 });
@@ -23,7 +22,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
+    <html lang="fa" dir="rtl" className={`${vazirmatn.variable}`}>
       <body>
         <Toaster />
         <Providers>

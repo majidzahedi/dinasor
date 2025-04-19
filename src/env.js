@@ -7,10 +7,23 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    AUTH_SECRET:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    // AUTH_GOOGLE_ID: z.string(),
+    // AUTH_GOOGLE_SECRET: z.string(),
+
+    AUTH_GITHUB_ID: z.string(),
+    AUTH_GITHUB_SECRET: z.string(),
+
     DATABASE_URL: z.string().url(),
+
+    HOST_URL: z.string().default("http://localhost:3000"),
+
     NODE_ENV: z
       .enum(["development", "test", "production"])
-      .default("development"),
+      .default("production"),
   },
 
   /**
@@ -19,6 +32,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_HOST_URL: z.string().default("http://localhost:3000"),
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
   },
 
@@ -27,9 +41,15 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    AUTH_SECRET: process.env.AUTH_SECRET,
+    // AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
+    // AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    AUTH_GITHUB_ID: process.env.AUTH_GITHUB_ID,
+    AUTH_GITHUB_SECRET: process.env.AUTH_GITHUB_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
+    HOST_URL: process.env.HOST_URL,
     NODE_ENV: process.env.NODE_ENV,
-    // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+    NEXT_PUBLIC_HOST_URL: process.env.NEXT_PUBLIC_HOST_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
