@@ -13,8 +13,14 @@ export function AuthView({ pathname }: { pathname: string }) {
   }, [router]);
 
   return (
-    <main className="flex grow flex-col items-center justify-center p-4">
-      <AuthCard pathname={pathname} />
+    <main className="bg-muted flex min-h-screen grow flex-col items-center justify-center p-4">
+      <AuthCard
+        classNames={{
+          form: { actionButton: "bg-indigo-700" },
+        }}
+        redirectTo="/dashboard"
+        pathname={pathname}
+      />
     </main>
   );
 }
