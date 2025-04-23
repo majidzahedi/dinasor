@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -12,26 +11,32 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { organizationInsertSchema } from "@/server/db/schema";
-import { api } from "@/trpc/react";
+import { useTRPC } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+
 export const WelcomeScreen = () => {
+  const api = useTRPC();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [data] = api.agency.isFirstLogin.useSuspenseQuery();
+  const {
+    data: data
+  } = useSuspenseQuery(api.agency.isFirstLogin.queryOptions());
 
-  const create = api.agency.create.useMutation({
+  const create = useMutation(api.agency.create.mutationOptions({
     onSuccess: () => {
       router.push(searchParams.get("redirect-to") ?? "/dashboard");
     },
     onError: (error) => {
       toast.error(error.data?.code, { description: error.message });
     },
-  });
+  }));
 
   const form = useForm({
     resolver: zodResolver(organizationInsertSchema),
