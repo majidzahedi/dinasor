@@ -1,4 +1,5 @@
-import { postRouter } from "@/server/api/routers/post";
+import { agencyRouter } from "@/modules/agency/server/procedures";
+import { todoRoute } from "@/modules/todo/server/procedures";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
 /**
@@ -6,7 +7,10 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  *
  * All routers added in /api/routers should be manually added here.
  */
-export const appRouter = createTRPCRouter({});
+export const appRouter = createTRPCRouter({
+  agency: agencyRouter,
+  todo: todoRoute,
+});
 
 // export type definition of API
 export type AppRouter = typeof appRouter;

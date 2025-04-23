@@ -29,6 +29,7 @@ import {
 import { NavMain } from "./nav/main-nav";
 import { NavDocuments } from "./nav/documents-nav";
 import { NavSecondary } from "./nav/secondary-nav";
+import Image from "next/image";
 
 const data = {
   user: {
@@ -160,6 +161,13 @@ export const DashbardSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton>
               <span className="text-base font-semibold">زونکن</span>
+              <Image
+                className="mr-auto"
+                src="/logo.png"
+                width={32}
+                height={32}
+                alt="logo"
+              />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

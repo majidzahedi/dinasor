@@ -1,6 +1,6 @@
 import { RedirectToSignIn, SignedIn } from "@daveyplate/better-auth-ui";
 
-export default function ProtectedRoute({
+export default async function ProtectedRoute({
   children,
 }: {
   children: React.ReactNode;

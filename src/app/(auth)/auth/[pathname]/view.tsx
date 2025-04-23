@@ -1,11 +1,13 @@
 "use client";
 
 import { AuthCard } from "@daveyplate/better-auth-ui";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export function AuthView({ pathname }: { pathname: string }) {
   const router = useRouter();
+
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     // Clear router cache (protected routes)
@@ -18,7 +20,7 @@ export function AuthView({ pathname }: { pathname: string }) {
         classNames={{
           form: { actionButton: "bg-indigo-700" },
         }}
-        redirectTo="/dashboard"
+        redirectTo={`/welcome?${searchParams.toString()}`}
         pathname={pathname}
       />
     </main>

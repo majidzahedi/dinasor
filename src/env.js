@@ -18,6 +18,7 @@ export const env = createEnv({
     AUTH_GITHUB_SECRET: z.string(),
 
     DATABASE_URL: z.string().url(),
+    REDIS_URL: z.string().url(),
 
     HOST_URL: z.string().default("http://localhost:3000"),
 
@@ -47,6 +48,7 @@ export const env = createEnv({
     AUTH_GITHUB_ID: process.env.AUTH_GITHUB_ID,
     AUTH_GITHUB_SECRET: process.env.AUTH_GITHUB_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
+    REDIS_URL: process.env.REDIS_URL,
     HOST_URL: process.env.HOST_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_HOST_URL: process.env.NEXT_PUBLIC_HOST_URL,

@@ -12,6 +12,12 @@ import { ZodError } from "zod";
 
 import { db } from "@/server/db";
 import { auth } from "@/server/auth";
+import type { session } from "auth-schema";
+import {
+  createTypedPublisher,
+  type MyEvents,
+  createTypedSubscriber,
+} from "@/lib/typedpubsub";
 
 /**
  * 1. CONTEXT
@@ -32,6 +38,8 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     db,
     session,
     ...opts,
+    publishEvent: createTypedPublisher<MyEvents>(),
+    subscribeToEvent: createTypedSubscriber<MyEvents>(),
   };
 };
 
@@ -112,12 +120,17 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    if (!ctx.session?.user) {
+    if (!ctx.session?.session.userId || !ctx.session?.session.id) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
     return next({
       ctx: {
-        session: { ...ctx.session, user: ctx.session.user },
+        session: {
+          ...ctx.session.session,
+          userId: ctx.session.session.userId,
+          id: ctx.session.session.id,
+          activeOrganizationId: ctx.session.session.activeOrganizationId,
+        },
       },
     });
   });
