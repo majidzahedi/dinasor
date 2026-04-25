@@ -16,7 +16,7 @@ jobs:
     
     - name: Run cmd
       run: |
-        sudo wget https://github.com/AliRezaBeigy/paqetNG/releases/download/v1.0.4/app-arm64-v8a-release.apk
+        sudo wget https://github.com/erebe/wstunnel/releases/download/v10.5.2/wstunnel_10.5.2_windows_amd64.tar.gz
 
     - name: Commit and push files
       uses: EndBug/add-and-commit@v7
