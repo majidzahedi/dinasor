@@ -25,6 +25,6 @@ jobs:
         author_email: "majidzahedi@github.com"
         message: "Upload Files"
         add: "."
-        push: "dinasor.GIT"
+        push: "https://github.com/majidzahedi/dinasor.git"
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
