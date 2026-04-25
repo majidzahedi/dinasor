@@ -16,7 +16,7 @@ jobs:
     
     - name: Run cmd
       run: |
-        sudo wget https://github.com/dnstt-xyz/dnstt_xyz_app/releases/download/v2.2.0/DNSTT-Client-v2.2.0-Android-arm64-v8a.apk
+        sudo wget https://github.com/AliRezaBeigy/paqetNG/releases/download/v1.0.4/app-arm64-v8a-release.apk
 
     - name: Commit and push files
       uses: EndBug/add-and-commit@v7
