@@ -16,7 +16,7 @@ jobs:
     
     - name: Run cmd
       run: |
-        sudo wget https://github.com/anonvector/SlipNet/releases/download/v2.5.2/SlipNet-v2.5.2-full-release-arm64-v8a.apk
+        sudo wget https://github.com/gusgustavo/champa-ci/releases/download/v0.20250620.0/champa-client-linux-amd64
 
     - name: Commit and push files
       uses: EndBug/add-and-commit@v7
