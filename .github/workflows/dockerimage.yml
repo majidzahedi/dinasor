@@ -1,0 +1,69 @@
+name: Download Docker Image and Upload
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    # Add this step to set up Docker (if not already available on the runner)
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Download and Archive Docker Image
+      run: |
+        # Create a Python script on the fly or use a pre-existing one
+        cat <<EOF > download_docker_image.py
+        import subprocess
+        import os
+
+        def download_and_archive_docker_image(image_name, output_filename):
+            try:
+                print(f"Pulling Docker image: {image_name}...")
+                subprocess.run(["docker", "pull", image_name], check=True)
+                print("Docker image pulled successfully.")
+
+                print(f"Saving Docker image to {output_filename}...")
+                # Save the image as a tar archive.
+                # If you want to compress with gzip, you'd typically do:
+                # subprocess.run(["docker", "save", image_name], stdout=open(output_filename + ".tmp", "wb"))
+                # subprocess.run(["gzip", output_filename + ".tmp"], check=True)
+                # os.rename(output_filename + ".tmp.gz", output_filename)
+                # For simplicity, we'll save without immediate gzip here.
+                subprocess.run(["docker", "save", "-o", output_filename, image_name], check=True)
+                print("Docker image saved successfully.")
+
+            except subprocess.CalledProcessError as e:
+                print(f"Error: {e}")
+                print(f"Command failed: {' '.join(e.cmd)}")
+                exit(1)
+            except FileNotFoundError:
+                print("Error: 'docker' command not found. Make sure Docker is installed and in your PATH.")
+                exit(1)
+
+        if __name__ == "__main__":
+            docker_image = "ghcr.io/therealaleph/mhrv-tunnel-node:latest"
+            archive_name = "mhrv-tunnel-node-latest.tar" # Ensure this filename matches what you want to commit
+
+            download_and_archive_docker_image(docker_image, archive_name)
+            print(f"Docker image '{docker_image}' has been downloaded and saved as '{archive_name}'.")
+        EOF
+        python download_docker_image.py
+
+    - name: Commit and push Docker image archive
+      uses: EndBug/add-and-commit@v7
+      with:
+        author_name: "majidzahedi"
+        author_email: "majidzahedi@github.com"
+        message: "Upload Docker image archive" # Changed message for clarity
+        add: "mhrv-tunnel-node-latest.tar" # Add the specific archive file
+        push: "https://github.com/majidzahedi/dinasor.git"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
