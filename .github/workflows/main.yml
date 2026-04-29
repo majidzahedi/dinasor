@@ -16,7 +16,7 @@ jobs:
     
     - name: Run cmd
       run: |
-        sudo wget https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/download/v1.6.4/mhrv-rs-android-universal-v1.6.4.apk
+        sudo wget https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/download/v1.8.5/mhrv-rs-android-universal-v1.8.5.apk
 
     - name: Commit and push files
       uses: EndBug/add-and-commit@v7
