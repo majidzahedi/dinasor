@@ -16,7 +16,7 @@ jobs:
     
     - name: Run cmd
       run: |
-        sudo wget https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/download/v1.9.0/mhrv-rs-windows-amd64.zip
+        sudo wget https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/download/v1.9.0/mhrv-rs-linux-amd64.tar.gz
 
     - name: Commit and push files
       uses: EndBug/add-and-commit@v7
